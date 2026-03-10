@@ -12,7 +12,7 @@ Then we injected 20 single-line bugs -- the kind that pass type-checking and loo
 
 ## Three Approaches
 
-We gave three separate Claude Code sessions the same bugged codebase and asked each to write comprehensive Playwright tests. None were told about the bugs.
+I gave three separate Claude Code sessions the same bugged codebase and asked each to write comprehensive Playwright tests. None were told about the bugs.
 
 **Blind** -- source code only. No exploration, no screenshots, no accessibility trees.
 
@@ -73,6 +73,8 @@ We gave three separate Claude Code sessions the same bugged codebase and asked e
 - Spec-first is best at semantic/data assertions but loses detail in the spec-to-test handoff
 
 This is why running all three found 20/20 while none individually broke 18.
+
+**Takeaway:** The biggest takeaway was that giving an LLM the ability to observe the app can actually make it a worse tester, because it starts describing what it sees rather than determining what it should see.
 
 ## Try It
 

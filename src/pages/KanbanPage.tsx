@@ -56,13 +56,13 @@ export function KanbanPage({ onToast }: { onToast: (msg: string, type: 'info' | 
     }
   };
 
-  const addTask = (status: Task['status']) => {
+  const addTask = (_status: Task['status']) => { // BUG-16
     if (!newTitle.trim()) return;
     const task: Task = {
       id: crypto.randomUUID(),
       title: newTitle,
       description: '',
-      status,
+      status: 'todo', // BUG-16
       priority: 'medium',
       assignee: 'You',
     };
@@ -142,7 +142,7 @@ export function KanbanPage({ onToast }: { onToast: (msg: string, type: 'info' | 
                 onChange={e => {
                   const newStatus = e.target.value as Task['status'];
                   setTasks(prev => prev.map(t => t.id === selectedTask.id ? { ...t, status: newStatus } : t));
-                  setSelectedTask(prev => prev ? { ...prev, status: newStatus } : null);
+                  // BUG-17: selectedTask update removed
                   onToast(`Moved to ${columnLabels[newStatus]}`, 'info');
                 }}
                 className="w-full px-2 py-1 border rounded text-gray-900"

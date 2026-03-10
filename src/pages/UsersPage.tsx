@@ -26,19 +26,19 @@ export function UsersPage({ onToast }: { onToast: (msg: string, type: 'info' | '
 
   const filtered = useMemo(() => {
     let result = [...mockUsers];
-    if (search) result = result.filter(u => u.name.toLowerCase().includes(search.toLowerCase()) || u.email.toLowerCase().includes(search.toLowerCase()));
+    if (search) result = result.filter(u => u.name.includes(search) || u.email.includes(search)); // BUG-03
     if (selectedDepts.length) result = result.filter(u => selectedDepts.includes(u.department));
     if (selectedRoles.length) result = result.filter(u => selectedRoles.includes(u.role));
     result.sort((a, b) => {
       const av = a[sortKey], bv = b[sortKey];
       const cmp = av < bv ? -1 : av > bv ? 1 : 0;
-      return sortDir === 'asc' ? cmp : -cmp;
+      return sortDir === 'asc' ? -cmp : cmp; // BUG-02
     });
     return result;
   }, [search, selectedDepts, selectedRoles, sortKey, sortDir]);
 
   const totalPages = Math.ceil(filtered.length / pageSize);
-  const paged = filtered.slice((page - 1) * pageSize, page * pageSize);
+  const paged = filtered.slice(page * pageSize, page * pageSize + pageSize); // BUG-01
 
   const toggleSort = (key: SortKey) => {
     if (sortKey === key) setSortDir(d => d === 'asc' ? 'desc' : 'asc');
@@ -53,13 +53,13 @@ export function UsersPage({ onToast }: { onToast: (msg: string, type: 'info' | '
     if (paged.every(u => selectedIds.has(u.id))) {
       setSelectedIds(prev => { const n = new Set(prev); paged.forEach(u => n.delete(u.id)); return n; });
     } else {
-      setSelectedIds(prev => { const n = new Set(prev); paged.forEach(u => n.add(u.id)); return n; });
+      setSelectedIds(prev => { const n = new Set(prev); n.add(paged[0].id); return n; }); // BUG-13
     }
   };
 
   const bulkAction = (action: string) => {
     onToast(`${action} applied to ${selectedIds.size} user(s)`, 'success');
-    setSelectedIds(new Set());
+    // BUG-14: selection clear removed
   };
 
   const SortHeader = ({ label, field }: { label: string; field: SortKey }) => (

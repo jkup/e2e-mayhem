@@ -33,12 +33,12 @@ export function SearchAutocomplete({ items, onSelect, testId = 'search-autocompl
   }, []);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setActiveIndex(prev => Math.min(prev + 1, filtered.length - 1));
-    } else if (e.key === 'ArrowUp') {
+    if (e.key === 'ArrowDown') { // BUG-19
       e.preventDefault();
       setActiveIndex(prev => Math.max(prev - 1, -1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveIndex(prev => Math.min(prev + 1, filtered.length - 1));
     } else if (e.key === 'Enter' && activeIndex >= 0) {
       e.preventDefault();
       onSelect(filtered[activeIndex]);

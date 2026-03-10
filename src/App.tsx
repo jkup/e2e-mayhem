@@ -77,7 +77,7 @@ function AppShell() {
               aria-label="Notifications"
             >
               🔔
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">0</span>{/* BUG-20 */}
             </button>
             <Dropdown
               testId="user-menu"

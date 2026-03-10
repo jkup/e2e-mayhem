@@ -13,7 +13,7 @@
       "name": "Sort direction inverted",
       "category": "logic",
       "severity": "medium",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "default sort order is ascending by name — first row name is not alphabetically before second row" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -21,7 +21,7 @@
       "name": "Search filter is case-sensitive",
       "category": "logic",
       "severity": "medium",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "search is case-insensitive — searching lowercase version of a user's name returns 0 results" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -29,7 +29,7 @@
       "name": "Login accepts short passwords",
       "category": "validation",
       "severity": "high",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/login.spec.ts", "failure_message": "shows error for short password — 3-char password does not trigger 'Password must be at least 6 characters' error" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -37,7 +37,7 @@
       "name": "Signup confirm password not validated",
       "category": "validation",
       "severity": "high",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/login.spec.ts", "failure_message": "signup mode validates confirm password matches — mismatched confirm password does not show error" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -53,7 +53,7 @@
       "name": "Wizard skips company validation",
       "category": "validation",
       "severity": "medium",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/wizard.spec.ts", "failure_message": "step 2 validation company name required — proceeding without company name does not show 'Required' error" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -61,7 +61,7 @@
       "name": "Wizard step indicator off by one",
       "category": "visual",
       "severity": "medium",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/wizard.spec.ts", "failure_message": "completed steps show checkmark — step 0 does not have bg-blue-600 class after completing it" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -69,7 +69,7 @@
       "name": "Wizard review shows wrong name",
       "category": "logic",
       "severity": "high",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/wizard.spec.ts", "failure_message": "step 4 review page shows entered data — expected 'John Doe' but got 'Doe John' (lastName firstName reversed)" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -77,7 +77,7 @@
       "name": "Modal doesn't close on Escape",
       "category": "interaction",
       "severity": "medium",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "modal closes via Escape key — modal overlay still visible after pressing Escape" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -85,7 +85,7 @@
       "name": "Modal backdrop click broken",
       "category": "interaction",
       "severity": "medium",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "modal closes via backdrop click — modal overlay still visible after clicking backdrop" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -93,7 +93,7 @@
       "name": "Toast uses wrong color for errors",
       "category": "visual",
       "severity": "medium",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/toast.spec.ts", "failure_message": "error toast uses red background — expected bg-red-500 class but toast has bg-green-500" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -101,7 +101,7 @@
       "name": "Select-all only selects first row",
       "category": "state",
       "severity": "high",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "select-all checkbox selects all rows — not all row checkboxes are checked after clicking select-all" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -109,7 +109,7 @@
       "name": "Bulk actions don't clear selection",
       "category": "state",
       "severity": "medium",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "bulk action triggers toast and clears selection — bulk-actions dropdown still visible after applying action" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -117,7 +117,7 @@
       "name": "Mark-all-read doesn't work",
       "category": "state",
       "severity": "medium",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/dashboard.spec.ts", "failure_message": "mark all as read — mark-read buttons still present after clicking 'Mark all as read'" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -125,7 +125,7 @@
       "name": "Kanban add task saves to wrong column",
       "category": "state",
       "severity": "high",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/kanban.spec.ts", "failure_message": "new task added to correct column — task added via Review column appeared in Todo column instead" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -133,7 +133,7 @@
       "name": "Task detail modal shows stale status",
       "category": "state",
       "severity": "medium",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/kanban.spec.ts", "failure_message": "task detail modal select value after moving — select does not reflect new status after changing it" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -141,7 +141,7 @@
       "name": "SlideOver missing aria-modal",
       "category": "accessibility",
       "severity": "low",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "slide-over has aria-modal attribute — expected aria-modal='true' but attribute was null" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -149,7 +149,7 @@
       "name": "Search autocomplete keyboard nav broken",
       "category": "interaction",
       "severity": "medium",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/search-autocomplete.spec.ts", "failure_message": "keyboard navigation with ArrowDown — first result not selected after pressing ArrowDown" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
@@ -157,7 +157,7 @@
       "name": "Notification badge hardcoded",
       "category": "visual",
       "severity": "low",
-      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "blind": { "detected": true, "test_file": "e2e/blind/app-shell.spec.ts", "failure_message": "notification badge shows correct unread count — badge shows 0 but expected > 0" },
       "guided": { "detected": false, "test_file": null, "failure_message": null }
     }
   ]

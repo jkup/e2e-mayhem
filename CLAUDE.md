@@ -6,7 +6,8 @@ Experiment to test whether Claude Code can autonomously generate comprehensive e
 ## Current Status
 **Phase 1 (Build Demo App): COMPLETE** — App builds and type-checks cleanly.
 **Phase 2 (Install Playwright): COMPLETE** — Playwright installed, configured, smoke test passing.
-Next up: Phase 3 (exploration scripts), then Phase 4 (autonomous test loop).
+**Phase 3 (Exploration Scripts): COMPLETE** — `npm run explore` generates accessibility trees, testids, interactive elements, and screenshots for all pages into `exploration-output/`.
+Next up: Phase 4 (autonomous test loop).
 
 ## Tech Stack
 - React 19 + TypeScript + Vite 7
@@ -27,12 +28,14 @@ npm run build   # Type-check + production build
 npm run test:e2e        # Run all e2e tests (headless)
 npm run test:e2e:ui     # Open Playwright UI mode
 npm run test:e2e:report # View HTML test report
+npm run explore         # Run exploration script → outputs to exploration-output/
 ```
 - Config: `playwright.config.ts`
 - Tests live in `e2e/` directory
 - Dev server auto-starts on **port 5174** during tests (to avoid conflicts with existing dev servers on 5173)
 - Chromium only, screenshot on failure, HTML reporter
 - Smoke test: `e2e/smoke.spec.ts`
+- Exploration script: `e2e/explore-app.spec.ts` — generates `exploration-output/` with per-page JSON (testids, interactive elements, aria snapshots) + screenshots + SUMMARY.md
 
 ## App Structure
 

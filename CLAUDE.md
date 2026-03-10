@@ -5,7 +5,8 @@ Experiment to test whether Claude Code can autonomously generate comprehensive e
 
 ## Current Status
 **Phase 1 (Build Demo App): COMPLETE** — App builds and type-checks cleanly.
-Next up: Phase 2 (Install Playwright), then Phase 3 (exploration scripts), then Phase 4 (autonomous test loop).
+**Phase 2 (Install Playwright): COMPLETE** — Playwright installed, configured, smoke test passing.
+Next up: Phase 3 (exploration scripts), then Phase 4 (autonomous test loop).
 
 ## Tech Stack
 - React 19 + TypeScript + Vite 7
@@ -20,6 +21,18 @@ Next up: Phase 2 (Install Playwright), then Phase 3 (exploration scripts), then 
 npm run dev     # Start dev server
 npm run build   # Type-check + production build
 ```
+
+## E2E Testing (Playwright)
+```
+npm run test:e2e        # Run all e2e tests (headless)
+npm run test:e2e:ui     # Open Playwright UI mode
+npm run test:e2e:report # View HTML test report
+```
+- Config: `playwright.config.ts`
+- Tests live in `e2e/` directory
+- Dev server auto-starts on **port 5174** during tests (to avoid conflicts with existing dev servers on 5173)
+- Chromium only, screenshot on failure, HTML reporter
+- Smoke test: `e2e/smoke.spec.ts`
 
 ## App Structure
 
@@ -61,6 +74,9 @@ npm run build   # Type-check + production build
 
 ## File Map
 ```
+playwright.config.ts     # Playwright config (port 5174, webServer, chromium)
+e2e/
+└── smoke.spec.ts        # Smoke test (app loads, login form visible)
 src/
 ├── App.tsx              # Auth gate + AppShell with sidebar, topbar, routing
 ├── main.tsx             # React root mount

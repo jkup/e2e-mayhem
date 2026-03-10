@@ -1,187 +1,102 @@
 # E2E Mayhem
 
-An experiment to measure how well Claude Code can autonomously write end-to-end tests that catch real bugs -- and whether giving it exploration output (accessibility trees, test IDs, screenshots) helps or hurts compared to a blind run with source code alone.
+Can Claude Code write e2e tests that actually catch bugs? We built a complex React app, injected 20 subtle bugs, and ran three independent test-writing sessions to find out.
 
-## The Experiment
+## The Setup
 
-### 1. Build a Complex Demo App
+We had Claude Code generate a full React app (React 19, TypeScript, Vite, Tailwind, React Router, drag-and-drop) with five pages: Login, Dashboard, Users table, multi-step Wizard, and Kanban board. No backend -- everything runs in-memory with deterministic faker data.
 
-Claude Code generated a full-featured React web app with five pages, each packed with interactive elements:
+Then we injected 20 single-line bugs -- the kind that pass type-checking and look fine at a glance. Off-by-one errors, inverted conditions, swapped labels, missing validations. Each one is a realistic mistake a developer might actually make.
 
-- **Login** -- email/password validation, show/hide password toggle, sign-in/sign-up mode switching
-- **Dashboard** -- stats cards, activity feed with mark-read, task distribution chart, priority breakdown
-- **Users** -- data table with search, multi-select filters, column sorting, pagination, bulk selection, per-row action dropdowns, slide-over detail panel with tabs, delete confirmation modal
-- **Wizard** -- 4-step registration form with per-step validation, plan selection, addon checkboxes, review page, terms agreement
-- **Kanban** -- 4-column drag-and-drop board, inline task creation, task detail modal with status change
+## Three Approaches
 
-The app uses React 19, TypeScript, Vite, Tailwind CSS, React Router, @dnd-kit, and @faker-js/faker (seeded for deterministic data). No backend -- all state is in-memory.
+We gave three separate Claude Code sessions the same bugged codebase and asked each to write comprehensive Playwright tests. None were told about the bugs.
 
-### 2. Inject 20 Subtle Bugs
+**Blind** -- source code only. No exploration, no screenshots, no accessibility trees.
 
-We injected 20 single-line bugs across six categories. The bugs were designed to be realistic and non-obvious -- the kind of thing that passes type-checking and looks fine at a glance:
+**Guided** -- source code plus exploration output: per-page JSON with all test IDs, interactive elements, accessibility trees, and screenshots.
 
-| Category | Count | Examples |
-|----------|-------|---------|
-| Logic | 4 | Pagination off-by-one, sort direction inverted, name order reversed |
-| Validation | 3 | Password min-length lowered, confirm-password check removed |
-| Interaction | 3 | Modal Escape key broken, backdrop click logic inverted, arrow keys swapped |
-| State | 5 | Select-all only selects first row, mark-all-read sets read=false, add-task ignores target column |
-| Visual | 3 | Error toast uses green instead of red, step indicator styling off-by-one, badge hardcoded to 0 |
-| Accessibility | 2 | aria-label swapped on password toggle, aria-modal removed from slide-over |
-
-### 3. Run Three Independent Test Sessions
-
-Three separate Claude Code sessions wrote comprehensive Playwright e2e tests for the bugged app. Each session had access to the full source code and CLAUDE.md project docs but was told not to look at the `bugs/` directory.
-
-**Blind run** (`e2e/blind/`): Claude wrote tests with source code only. No exploration output, no screenshots, no accessibility trees.
-
-**Guided run** (`e2e/guided/`): Claude first ran an exploration script (`npm run explore`) that generated per-page JSON files with all `data-testid` attributes, interactive elements, accessibility trees, and screenshots. These were provided as additional context.
-
-**Spec-first run** (`e2e/spec-first/`): A two-phase approach. First, Claude read the source code and generated a detailed behavioral specification (SPEC.md) describing what each feature _should_ do based on code intent -- focusing on naming, error messages, and API contracts rather than literal implementation. Then a second Claude session (which never read the source code) wrote tests purely from the spec. The `// BUG-XX` comments were stripped from the source before Phase 1 to prevent biasing.
-
-### 4. Compare Results
-
-Each test failure was mapped back to the specific injected bug it detected.
+**Spec-first** -- two phases. First, Claude read the source and wrote a behavioral spec describing what each feature *should* do (based on naming, error messages, and API contracts -- not what it literally does). Then a second session wrote tests from the spec alone, never seeing the source. We stripped the `// BUG-XX` comments from the code beforehand so Phase 1 couldn't cheat.
 
 ## Results
 
-### Detection Matrix
+| # | Bug | Blind | Guided | Spec-first |
+|---|-----|:-----:|:------:|:----------:|
+| 01 | Pagination off-by-one | -- | -- | :white_check_mark: |
+| 02 | Sort direction inverted | :white_check_mark: | -- | :white_check_mark: |
+| 03 | Search filter case-sensitive | :white_check_mark: | :white_check_mark: | -- |
+| 04 | Login accepts short passwords | :white_check_mark: | -- | :white_check_mark: |
+| 05 | Confirm password not validated | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| 06 | Password toggle wrong aria-label | -- | -- | :white_check_mark: |
+| 07 | Wizard skips company validation | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| 08 | Step indicator off by one | :white_check_mark: | -- | :white_check_mark: |
+| 09 | Review shows name reversed | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| 10 | Modal Escape key broken | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| 11 | Modal backdrop click broken | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| 12 | Error toast uses wrong color | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| 13 | Select-all only selects first row | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| 14 | Bulk actions don't clear selection | :white_check_mark: | :white_check_mark: | -- |
+| 15 | Mark-all-read doesn't work | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| 16 | Add task goes to wrong column | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| 17 | Task modal shows stale status | :white_check_mark: | :white_check_mark: | -- |
+| 18 | SlideOver missing aria-modal | :white_check_mark: | :white_check_mark: | -- |
+| 19 | Keyboard nav arrows swapped | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| 20 | Notification badge hardcoded | :white_check_mark: | -- | :white_check_mark: |
+| | **Total** | **18/20** | **14/20** | **16/20** |
 
-| # | Bug | Category | Severity | Blind | Guided | Spec-first |
-|---|-----|----------|----------|:-----:|:------:|:----------:|
-| 01 | Pagination off-by-one | logic | high | -- | -- | :white_check_mark: |
-| 02 | Sort direction inverted | logic | medium | :white_check_mark: | -- | :white_check_mark: |
-| 03 | Search filter is case-sensitive | logic | medium | :white_check_mark: | :white_check_mark: | -- |
-| 04 | Login accepts short passwords | validation | high | :white_check_mark: | -- | :white_check_mark: |
-| 05 | Signup confirm password not validated | validation | high | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| 06 | Password toggle shows wrong label | accessibility | low | -- | -- | :white_check_mark: |
-| 07 | Wizard skips company validation | validation | medium | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| 08 | Wizard step indicator off by one | visual | medium | :white_check_mark: | -- | :white_check_mark: |
-| 09 | Wizard review shows wrong name | logic | high | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| 10 | Modal doesn't close on Escape | interaction | medium | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| 11 | Modal backdrop click broken | interaction | medium | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| 12 | Toast uses wrong color for errors | visual | medium | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| 13 | Select-all only selects first row | state | high | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| 14 | Bulk actions don't clear selection | state | medium | :white_check_mark: | :white_check_mark: | -- |
-| 15 | Mark-all-read doesn't work | state | medium | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| 16 | Kanban add task saves to wrong column | state | high | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| 17 | Task detail modal shows stale status | state | medium | :white_check_mark: | :white_check_mark: | -- |
-| 18 | SlideOver missing aria-modal | accessibility | low | :white_check_mark: | :white_check_mark: | -- |
-| 19 | Search autocomplete keyboard nav broken | interaction | medium | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| 20 | Notification badge hardcoded | visual | low | :white_check_mark: | -- | :white_check_mark: |
-| | **Total** | | | **18/20** | **14/20** | **16/20** |
+**Combined: 20/20.** No single approach found everything, but together they caught all 20.
 
-### By Category
+### The Numbers
 
-| Category | Blind | Guided | Spec-first |
-|----------|:-----:|:------:|:----------:|
-| Logic | 3/4 | 2/4 | 3/4 |
-| Validation | 3/3 | 2/3 | 3/3 |
-| Interaction | 3/3 | 3/3 | 3/3 |
-| State | 5/5 | 5/5 | 3/5 |
-| Visual | 3/3 | 1/3 | 3/3 |
-| Accessibility | 1/2 | 1/2 | 1/2 |
-
-### By Severity
-
-| Severity | Blind | Guided | Spec-first |
-|----------|:-----:|:------:|:----------:|
-| High | 5/6 | 4/6 | 6/6 |
-| Medium | 11/11 | 9/11 | 8/11 |
-| Low | 2/3 | 1/3 | 2/3 |
-
-### Test Suite Stats
-
-| Metric | Blind | Guided | Spec-first |
-|--------|------:|-------:|----------:|
-| Total tests | 126 | 182 | 302 |
+| | Blind | Guided | Spec-first |
+|--|------:|-------:|----------:|
+| Tests written | 126 | 182 | 302 |
 | Passing | 106 | 163 | 252 |
-| Bug detections | 18 | 14 | 16 |
-| False-positive failures | 2 | 5 | 18 |
+| Bugs caught | 18 | 14 | 16 |
 
-### Combined Coverage
+## What We Learned
 
-Taking the union of all three approaches: **20/20 bugs detected.**
+**Blind was the best single approach.** 18 out of 20, with the fewest tests. Reading source code and reasoning about what it *should* do turns out to be a strong testing strategy.
 
-| Bug | Caught by |
-|-----|-----------|
-| Pagination off-by-one | Spec-first only |
-| Sort direction inverted | Blind, Spec-first |
-| Search filter is case-sensitive | Blind, Guided |
-| Login accepts short passwords | Blind, Spec-first |
-| Password toggle shows wrong label | Spec-first only |
-| All other 15 bugs | 2+ approaches |
+**Giving Claude more context actually hurt.** The guided run wrote 44% more tests but caught fewer bugs. The exploration output showed Claude what the app *currently does* -- including its bugs -- which anchored expectations to the broken behavior.
 
-## Key Takeaways
+**Spec-first cracked the two hardest bugs.** The pagination off-by-one and the swapped aria-label were missed by both blind and guided. Spec-first caught them because the spec forced Claude to document exact expected values ("page 1 shows users 1-10", "aria-label is 'Show password' when hidden") before anyone wrote assertions.
 
-**The blind run still detected the most bugs (18/20),** but the spec-first approach (16/20) significantly outperformed the guided run (14/20) and caught the two bugs that _no other approach_ could find.
+**Spec-first has a translation problem.** The spec correctly identified some bugs that the test writer then failed to test, or tested backwards. For example, the spec called out case-sensitive search as a bug, but the test writer wrote a test expecting case-sensitive behavior. The handoff between "understand intent" and "write assertions" loses information.
 
-**Spec-first uniquely caught 2 bugs that blind and guided both missed:**
+**The approaches have complementary blind spots:**
 
-- **Pagination off-by-one** -- the spec documented exact expected data for each page (e.g., "page 1 shows users at indices 0-9"), and tests asserted specific user names. The blind and guided runs only tested that pagination controls worked mechanically.
-- **Password toggle aria-label swapped** -- the spec explicitly documented the intended aria-label for each state ("Show password" when hidden, "Hide password" when visible), and the test asserted exact values. The blind and guided runs accidentally matched the buggy behavior.
+- Blind is great at code-intent testing but misses data-correctness bugs
+- Guided is good at interaction testing but gets anchored to buggy behavior
+- Spec-first is best at semantic/data assertions but loses detail in the spec-to-test handoff
 
-**Spec-first missed 4 bugs that blind caught:**
+This is why running all three found 20/20 while none individually broke 18.
 
-- **Search filter is case-sensitive** -- the spec identified this as a bug, but the Phase 2 test writer wrote a test that expected case-sensitive behavior (matching the bug). The spec-to-test translation lost the intent.
-- **Bulk actions don't clear selection** -- no test covered post-action selection state.
-- **Task detail modal shows stale status** -- no test checked the modal's status value after a move.
-- **SlideOver missing aria-modal** -- the spec noted aria-modal was absent and the test writer treated that as expected behavior.
-
-**Why did spec-first help?** The two-phase approach forced Claude to reason about _intended_ behavior separately from writing assertions. By documenting "the error message says 6 characters, so the minimum is 6" and "the function is called addTask with a status parameter, so it should use that status", the spec captured developer intent that raw code reading missed. This is the same principle behind specification-based testing -- separating the oracle from the implementation.
-
-**Why did spec-first still miss some bugs?** The handoff between Phase 1 (spec) and Phase 2 (tests) introduced translation loss. The spec correctly identified some bugs, but the test writer either wrote assertions that matched the buggy behavior or simply didn't write tests for every specified behavior. A tighter feedback loop -- or having Phase 2 explicitly check the spec's bug appendix -- could close this gap.
-
-**The real win is combining approaches.** No single approach found all 20 bugs. But the union of all three found 20/20. Each approach has complementary strengths:
-
-| Approach | Strength | Weakness |
-|----------|----------|----------|
-| Blind | Best overall coverage, tests based on code intent | Misses data-correctness and subtle aria-label bugs |
-| Guided | Good at interaction testing | Anchored to current (buggy) behavior |
-| Spec-first | Best at data correctness and semantic assertions | Translation loss between spec and tests |
-
-## Running It Yourself
+## Try It
 
 ```bash
 npm install
 npx playwright install chromium
 
-# Run the app
-npm run dev
-
-# Run all three test suites against the bugged app
+# Run all test suites
 npm run test:e2e
 
-# Run them individually
+# Or individually
 npx playwright test e2e/blind/
 npx playwright test e2e/guided/
 npx playwright test e2e/spec-first/
-
-# Generate the exploration output (used by the guided run)
-npm run explore
-
-# Regenerate the comparison matrix
-npx tsx bugs/generate-matrix.ts
 ```
 
 ## Project Structure
 
 ```
-src/                    # The demo web app
-  pages/                # LoginPage, DashboardPage, UsersPage, WizardPage, KanbanPage
-  components/           # Modal, SlideOver, Dropdown, MultiSelect, SearchAutocomplete, Tabs, ToastContainer
-  data/mock.ts          # Faker-generated deterministic test data
+src/                    # The demo app (5 pages, 7 components, mock data)
 e2e/
-  blind/                # Tests written without exploration output (126 tests)
-  guided/               # Tests written with exploration output (182 tests)
-  spec-first/           # Tests written from behavioral spec (302 tests)
-  smoke.spec.ts         # Basic smoke test
-  explore-app.spec.ts   # Script that generates exploration-output/
-exploration-output/     # Per-page JSON + screenshots (gitignored, regenerate with npm run explore)
+  blind/                # Tests from source code only (126 tests)
+  guided/               # Tests with exploration context (182 tests)
+  spec-first/           # Tests from behavioral spec (302 tests)
 bugs/
-  results.json          # Per-bug detection data for all three runs
-  generate-matrix.ts    # Script to produce MATRIX.md from results.json
-  MATRIX.md             # Generated comparison matrix
-SPEC.md                 # Behavioral specification generated for spec-first run
+  results.json          # Detection data for all three runs
+SPEC.md                 # Behavioral spec generated for spec-first run
 playwright.config.ts    # Playwright config (port 5174, Chromium only)
 ```

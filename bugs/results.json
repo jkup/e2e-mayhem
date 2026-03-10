@@ -6,7 +6,8 @@
       "category": "logic",
       "severity": "high",
       "blind": { "detected": false, "test_file": null, "failure_message": null },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": false, "test_file": null, "failure_message": null },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/users.spec.ts", "failure_message": "page 1 should show first 10 results — expected 'Aileen Pfeffer' but got wrong user due to slice starting at index 10" }
     },
     {
       "id": "BUG-02",
@@ -14,7 +15,8 @@
       "category": "logic",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "default sort order is ascending by name — first row name is not alphabetically before second row" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": false, "test_file": null, "failure_message": null },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/users.spec.ts", "failure_message": "clicking name header should toggle to descending — data order does not match expected descending sort" }
     },
     {
       "id": "BUG-03",
@@ -22,7 +24,8 @@
       "category": "logic",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "search is case-insensitive — searching lowercase version of a user's name returns 0 results" },
-      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "search is case-insensitive — searching 'mallory' (lowercase) returned 0 results instead of matching 'Mallory'" }
+      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "search is case-insensitive — searching 'mallory' (lowercase) returned 0 results instead of matching 'Mallory'" },
+      "spec_first": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
       "id": "BUG-04",
@@ -30,7 +33,8 @@
       "category": "validation",
       "severity": "high",
       "blind": { "detected": true, "test_file": "e2e/blind/login.spec.ts", "failure_message": "shows error for short password — 3-char password does not trigger 'Password must be at least 6 characters' error" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": false, "test_file": null, "failure_message": null },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/login.spec.ts", "failure_message": "should require at least 6 characters — 5-char password does not trigger error (code checks length < 2)" }
     },
     {
       "id": "BUG-05",
@@ -38,7 +42,8 @@
       "category": "validation",
       "severity": "high",
       "blind": { "detected": true, "test_file": "e2e/blind/login.spec.ts", "failure_message": "signup mode validates confirm password matches — mismatched confirm password does not show error" },
-      "guided": { "detected": true, "test_file": "e2e/guided/login.spec.ts", "failure_message": "signup mode validates confirm password matches — expected 'Passwords do not match' error but none appeared" }
+      "guided": { "detected": true, "test_file": "e2e/guided/login.spec.ts", "failure_message": "signup mode validates confirm password matches — expected 'Passwords do not match' error but none appeared" },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/login.spec.ts", "failure_message": "should validate that confirm password matches password — no confirm-password-error visible after submitting mismatched passwords" }
     },
     {
       "id": "BUG-06",
@@ -46,7 +51,8 @@
       "category": "accessibility",
       "severity": "low",
       "blind": { "detected": false, "test_file": null, "failure_message": null },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": false, "test_file": null, "failure_message": null },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/login.spec.ts", "failure_message": "should have correct aria-label — expected 'Show password' when hidden but got 'Hide password' (labels inverted)" }
     },
     {
       "id": "BUG-07",
@@ -54,7 +60,8 @@
       "category": "validation",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/wizard.spec.ts", "failure_message": "step 2 validation company name required — proceeding without company name does not show 'Required' error" },
-      "guided": { "detected": true, "test_file": "e2e/guided/wizard.spec.ts", "failure_message": "company name is required for step 1 validation — clicking Next without company name did not show 'Required' error" }
+      "guided": { "detected": true, "test_file": "e2e/guided/wizard.spec.ts", "failure_message": "company name is required for step 1 validation — clicking Next without company name did not show 'Required' error" },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/wizard.spec.ts", "failure_message": "company name should be required — no wizard-company-error visible after clicking Next with empty company" }
     },
     {
       "id": "BUG-08",
@@ -62,7 +69,8 @@
       "category": "visual",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/wizard.spec.ts", "failure_message": "completed steps show checkmark — step 0 does not have bg-blue-600 class after completing it" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": false, "test_file": null, "failure_message": null },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/wizard.spec.ts", "failure_message": "completed steps should show checkmark — step 0 indicator does not have bg-blue-600 class at step 1" }
     },
     {
       "id": "BUG-09",
@@ -70,7 +78,8 @@
       "category": "logic",
       "severity": "high",
       "blind": { "detected": true, "test_file": "e2e/blind/wizard.spec.ts", "failure_message": "step 4 review page shows entered data — expected 'John Doe' but got 'Doe John' (lastName firstName reversed)" },
-      "guided": { "detected": true, "test_file": "e2e/guided/wizard.spec.ts", "failure_message": "review shows name in 'First Last' format — expected 'John Doe' but got 'Doe John' (lastName firstName reversed)" }
+      "guided": { "detected": true, "test_file": "e2e/guided/wizard.spec.ts", "failure_message": "review shows name in 'First Last' format — expected 'John Doe' but got 'Doe John' (lastName firstName reversed)" },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/wizard.spec.ts", "failure_message": "should show name as firstName lastName — expected 'John Doe' but review shows 'Doe John'" }
     },
     {
       "id": "BUG-10",
@@ -78,7 +87,8 @@
       "category": "interaction",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "modal closes via Escape key — modal overlay still visible after pressing Escape" },
-      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "pressing Escape closes delete modal — modal still visible after pressing Escape (also detected in kanban.spec.ts)" }
+      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "pressing Escape closes delete modal — modal still visible after pressing Escape (also detected in kanban.spec.ts)" },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/components.spec.ts", "failure_message": "Escape key should close modal — modal still visible after pressing Escape (handler checks 'Esc' not 'Escape')" }
     },
     {
       "id": "BUG-11",
@@ -86,7 +96,8 @@
       "category": "interaction",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "modal closes via backdrop click — modal overlay still visible after clicking backdrop" },
-      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "clicking modal backdrop closes modal — modal still visible after clicking overlay (also detected in kanban.spec.ts)" }
+      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "clicking modal backdrop closes modal — modal still visible after clicking overlay (also detected in kanban.spec.ts)" },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/components.spec.ts", "failure_message": "clicking backdrop/overlay should close modal — modal still visible (click condition inverted)" }
     },
     {
       "id": "BUG-12",
@@ -94,7 +105,8 @@
       "category": "visual",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/toast.spec.ts", "failure_message": "error toast uses red background — expected bg-red-500 class but toast has bg-green-500" },
-      "guided": { "detected": true, "test_file": "e2e/guided/toast.spec.ts", "failure_message": "error toast uses correct styling (red background) — expected bg-red-500 class but toast has bg-green-500" }
+      "guided": { "detected": true, "test_file": "e2e/guided/toast.spec.ts", "failure_message": "error toast uses correct styling (red background) — expected bg-red-500 class but toast has bg-green-500" },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/components.spec.ts", "failure_message": "error toast should have bg-red-500 — toast has bg-green-500 instead" }
     },
     {
       "id": "BUG-13",
@@ -102,7 +114,8 @@
       "category": "state",
       "severity": "high",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "select-all checkbox selects all rows — not all row checkboxes are checked after clicking select-all" },
-      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "select all checkbox selects all visible rows — not all row checkboxes are checked after clicking select-all" }
+      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "select all checkbox selects all visible rows — not all row checkboxes are checked after clicking select-all" },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/users.spec.ts", "failure_message": "select all should select all users on current page — not all row checkboxes checked after clicking select-all" }
     },
     {
       "id": "BUG-14",
@@ -110,7 +123,8 @@
       "category": "state",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "bulk action triggers toast and clears selection — bulk-actions dropdown still visible after applying action" },
-      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "bulk action clears selection — bulk-actions button still visible after applying Activate action" }
+      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "bulk action clears selection — bulk-actions button still visible after applying Activate action" },
+      "spec_first": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
       "id": "BUG-15",
@@ -118,7 +132,8 @@
       "category": "state",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/dashboard.spec.ts", "failure_message": "mark all as read — mark-read buttons still present after clicking 'Mark all as read'" },
-      "guided": { "detected": true, "test_file": "e2e/guided/dashboard.spec.ts", "failure_message": "mark all as read button marks all items as read — mark-read buttons still present (count > 0) after clicking 'Mark all as read'" }
+      "guided": { "detected": true, "test_file": "e2e/guided/dashboard.spec.ts", "failure_message": "mark all as read button marks all items as read — mark-read buttons still present (count > 0) after clicking 'Mark all as read'" },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/dashboard.spec.ts", "failure_message": "Mark all as read should set all notifications to read — mark-read buttons still present after clicking" }
     },
     {
       "id": "BUG-16",
@@ -126,7 +141,8 @@
       "category": "state",
       "severity": "high",
       "blind": { "detected": true, "test_file": "e2e/blind/kanban.spec.ts", "failure_message": "new task added to correct column — task added via Review column appeared in Todo column instead" },
-      "guided": { "detected": true, "test_file": "e2e/guided/kanban.spec.ts", "failure_message": "adding task to In Progress column — task not found in In Progress column (also detected for Review column)" }
+      "guided": { "detected": true, "test_file": "e2e/guided/kanban.spec.ts", "failure_message": "adding task to In Progress column — task not found in In Progress column (also detected for Review column)" },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/kanban.spec.ts", "failure_message": "adding a task should create it in the correct column — task not found in In Progress column" }
     },
     {
       "id": "BUG-17",
@@ -134,7 +150,8 @@
       "category": "state",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/kanban.spec.ts", "failure_message": "task detail modal select value after moving — select does not reflect new status after changing it" },
-      "guided": { "detected": true, "test_file": "e2e/guided/kanban.spec.ts", "failure_message": "moved task select reflects new status — expected select value 'in-progress' but got 'todo' (selectedTask not updated)" }
+      "guided": { "detected": true, "test_file": "e2e/guided/kanban.spec.ts", "failure_message": "moved task select reflects new status — expected select value 'in-progress' but got 'todo' (selectedTask not updated)" },
+      "spec_first": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
       "id": "BUG-18",
@@ -142,7 +159,8 @@
       "category": "accessibility",
       "severity": "low",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "slide-over has aria-modal attribute — expected aria-modal='true' but attribute was null" },
-      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "slide-over has aria-modal attribute — expected aria-modal='true' but attribute was missing" }
+      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "slide-over has aria-modal attribute — expected aria-modal='true' but attribute was missing" },
+      "spec_first": { "detected": false, "test_file": null, "failure_message": null }
     },
     {
       "id": "BUG-19",
@@ -150,7 +168,8 @@
       "category": "interaction",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/search-autocomplete.spec.ts", "failure_message": "keyboard navigation with ArrowDown — first result not selected after pressing ArrowDown" },
-      "guided": { "detected": true, "test_file": "e2e/guided/app-shell.spec.ts", "failure_message": "keyboard navigation with arrow keys — first result not aria-selected after pressing ArrowDown (also broke Enter selection test)" }
+      "guided": { "detected": true, "test_file": "e2e/guided/app-shell.spec.ts", "failure_message": "keyboard navigation with arrow keys — first result not aria-selected after pressing ArrowDown (also broke Enter selection test)" },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/components.spec.ts", "failure_message": "ArrowDown should move selection DOWN — first result not aria-selected after pressing ArrowDown (handlers swapped)" }
     },
     {
       "id": "BUG-20",
@@ -158,7 +177,8 @@
       "category": "visual",
       "severity": "low",
       "blind": { "detected": true, "test_file": "e2e/blind/app-shell.spec.ts", "failure_message": "notification badge shows correct unread count — badge shows 0 but expected > 0" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": false, "test_file": null, "failure_message": null },
+      "spec_first": { "detected": true, "test_file": "e2e/spec-first/app-shell.spec.ts", "failure_message": "notifications badge should show unread count — expected '5' but badge shows '0'" }
     }
   ]
 }

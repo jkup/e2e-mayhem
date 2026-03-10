@@ -33,7 +33,7 @@ export function SearchAutocomplete({ items, onSelect, testId = 'search-autocompl
   }, []);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowDown') { // BUG-19
+    if (e.key === 'ArrowDown') {
       e.preventDefault();
       setActiveIndex(prev => Math.max(prev - 1, -1));
     } else if (e.key === 'ArrowUp') {

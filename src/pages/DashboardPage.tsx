@@ -16,7 +16,7 @@ export function DashboardPage() {
   };
 
   const markAllRead = () => {
-    setNotifications(prev => prev.map(n => ({ ...n, read: false }))); // BUG-15
+    setNotifications(prev => prev.map(n => ({ ...n, read: false })));
   };
 
   return (

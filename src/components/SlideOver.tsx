@@ -24,7 +24,7 @@ export function SlideOver({ open, onClose, title, children }: SlideOverProps) {
         data-testid="slideover"
         className={`fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl z-40 transform transition-transform duration-300 ${open ? 'translate-x-0' : 'translate-x-full'}`}
         role="dialog"
-        aria-label={title} /* BUG-18: aria-modal removed */
+        aria-label={title}
       >
         <div className="flex justify-between items-center px-6 py-4 border-b">
           <h2 className="text-lg font-semibold text-gray-900">{title}</h2>

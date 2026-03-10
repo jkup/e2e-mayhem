@@ -4,7 +4,7 @@ const typeStyles: Record<Toast['type'], string> = {
   info: 'bg-blue-500',
   success: 'bg-green-500',
   warning: 'bg-yellow-500 text-black',
-  error: 'bg-green-500', // BUG-12
+  error: 'bg-green-500',
 };
 
 export function ToastContainer({ toasts, onDismiss }: { toasts: Toast[]; onDismiss: (id: string) => void }) {

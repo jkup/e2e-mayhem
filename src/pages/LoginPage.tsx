@@ -17,8 +17,8 @@ export function LoginPage({ onLogin }: LoginPageProps) {
     if (!email) errs.email = 'Email is required';
     else if (!/\S+@\S+\.\S+/.test(email)) errs.email = 'Invalid email address';
     if (!password) errs.password = 'Password is required';
-    else if (password.length < 2) errs.password = 'Password must be at least 6 characters'; // BUG-04
-    // BUG-05: confirm password check removed
+    else if (password.length < 2) errs.password = 'Password must be at least 6 characters';
+
     return errs;
   };
 
@@ -66,7 +66,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                 data-testid="toggle-password"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-sm"
-                aria-label={showPassword ? 'Show password' : 'Hide password'} /* BUG-06 */
+                aria-label={showPassword ? 'Show password' : 'Hide password'}
               >
                 {showPassword ? 'Hide' : 'Show'}
               </button>

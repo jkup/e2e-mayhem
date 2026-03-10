@@ -1,12 +1,14 @@
 # E2E Mayhem
 
-Can Claude Code write e2e tests that actually catch bugs? We built a complex React app, injected 20 subtle bugs, and ran three independent test-writing sessions to find out.
+Can Claude Code write e2e tests that actually catch bugs? I built a complex React app, injected 20 subtle bugs, and ran three independent test-writing sessions to find out.
 
 ## The Setup
 
-We had Claude Code generate a full React app (React 19, TypeScript, Vite, Tailwind, React Router, drag-and-drop) with five pages: Login, Dashboard, Users table, multi-step Wizard, and Kanban board. No backend -- everything runs in-memory with deterministic faker data.
+Claude Code generated a full React app (React 19, TypeScript, Vite, Tailwind, React Router, drag-and-drop) with five pages: Login, Dashboard, Users table, multi-step Wizard, and Kanban board. No backend -- everything runs in-memory with deterministic faker data.
 
 Then we injected 20 single-line bugs -- the kind that pass type-checking and look fine at a glance. Off-by-one errors, inverted conditions, swapped labels, missing validations. Each one is a realistic mistake a developer might actually make.
+
+![Screenshot of the app](./screenshot.png)
 
 ## Three Approaches
 
@@ -16,7 +18,7 @@ We gave three separate Claude Code sessions the same bugged codebase and asked e
 
 **Guided** -- source code plus exploration output: per-page JSON with all test IDs, interactive elements, accessibility trees, and screenshots.
 
-**Spec-first** -- two phases. First, Claude read the source and wrote a behavioral spec describing what each feature *should* do (based on naming, error messages, and API contracts -- not what it literally does). Then a second session wrote tests from the spec alone, never seeing the source. We stripped the `// BUG-XX` comments from the code beforehand so Phase 1 couldn't cheat.
+**Spec-first** -- two phases. First, Claude read the source and wrote a behavioral spec describing what each feature *should* do (based on naming, error messages, and API contracts -- not what it literally does). Then a second session wrote tests from the spec alone, never seeing the source.
 
 ## Results
 

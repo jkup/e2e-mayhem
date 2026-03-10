@@ -3,12 +3,6 @@
 ## Project Goal
 Experiment to test whether Claude Code can autonomously generate comprehensive e2e tests for a complex web app. The full plan is in `TODO.md`.
 
-## Current Status
-**Phase 1 (Build Demo App): COMPLETE** — App builds and type-checks cleanly.
-**Phase 2 (Install Playwright): COMPLETE** — Playwright installed, configured, smoke test passing.
-**Phase 3 (Exploration Scripts): COMPLETE** — `npm run explore` generates accessibility trees, testids, interactive elements, and screenshots for all pages into `exploration-output/`.
-Next up: Phase 4 (autonomous test loop).
-
 ## Tech Stack
 - React 19 + TypeScript + Vite 7
 - Tailwind CSS v4 (via `@tailwindcss/vite` plugin)

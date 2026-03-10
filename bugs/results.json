@@ -22,7 +22,7 @@
       "category": "logic",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "search is case-insensitive — searching lowercase version of a user's name returns 0 results" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "search is case-insensitive — searching 'mallory' (lowercase) returned 0 results instead of matching 'Mallory'" }
     },
     {
       "id": "BUG-04",
@@ -38,7 +38,7 @@
       "category": "validation",
       "severity": "high",
       "blind": { "detected": true, "test_file": "e2e/blind/login.spec.ts", "failure_message": "signup mode validates confirm password matches — mismatched confirm password does not show error" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/login.spec.ts", "failure_message": "signup mode validates confirm password matches — expected 'Passwords do not match' error but none appeared" }
     },
     {
       "id": "BUG-06",
@@ -54,7 +54,7 @@
       "category": "validation",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/wizard.spec.ts", "failure_message": "step 2 validation company name required — proceeding without company name does not show 'Required' error" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/wizard.spec.ts", "failure_message": "company name is required for step 1 validation — clicking Next without company name did not show 'Required' error" }
     },
     {
       "id": "BUG-08",
@@ -70,7 +70,7 @@
       "category": "logic",
       "severity": "high",
       "blind": { "detected": true, "test_file": "e2e/blind/wizard.spec.ts", "failure_message": "step 4 review page shows entered data — expected 'John Doe' but got 'Doe John' (lastName firstName reversed)" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/wizard.spec.ts", "failure_message": "review shows name in 'First Last' format — expected 'John Doe' but got 'Doe John' (lastName firstName reversed)" }
     },
     {
       "id": "BUG-10",
@@ -78,7 +78,7 @@
       "category": "interaction",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "modal closes via Escape key — modal overlay still visible after pressing Escape" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "pressing Escape closes delete modal — modal still visible after pressing Escape (also detected in kanban.spec.ts)" }
     },
     {
       "id": "BUG-11",
@@ -86,7 +86,7 @@
       "category": "interaction",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "modal closes via backdrop click — modal overlay still visible after clicking backdrop" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "clicking modal backdrop closes modal — modal still visible after clicking overlay (also detected in kanban.spec.ts)" }
     },
     {
       "id": "BUG-12",
@@ -94,7 +94,7 @@
       "category": "visual",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/toast.spec.ts", "failure_message": "error toast uses red background — expected bg-red-500 class but toast has bg-green-500" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/toast.spec.ts", "failure_message": "error toast uses correct styling (red background) — expected bg-red-500 class but toast has bg-green-500" }
     },
     {
       "id": "BUG-13",
@@ -102,7 +102,7 @@
       "category": "state",
       "severity": "high",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "select-all checkbox selects all rows — not all row checkboxes are checked after clicking select-all" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "select all checkbox selects all visible rows — not all row checkboxes are checked after clicking select-all" }
     },
     {
       "id": "BUG-14",
@@ -110,7 +110,7 @@
       "category": "state",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "bulk action triggers toast and clears selection — bulk-actions dropdown still visible after applying action" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "bulk action clears selection — bulk-actions button still visible after applying Activate action" }
     },
     {
       "id": "BUG-15",
@@ -118,7 +118,7 @@
       "category": "state",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/dashboard.spec.ts", "failure_message": "mark all as read — mark-read buttons still present after clicking 'Mark all as read'" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/dashboard.spec.ts", "failure_message": "mark all as read button marks all items as read — mark-read buttons still present (count > 0) after clicking 'Mark all as read'" }
     },
     {
       "id": "BUG-16",
@@ -126,7 +126,7 @@
       "category": "state",
       "severity": "high",
       "blind": { "detected": true, "test_file": "e2e/blind/kanban.spec.ts", "failure_message": "new task added to correct column — task added via Review column appeared in Todo column instead" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/kanban.spec.ts", "failure_message": "adding task to In Progress column — task not found in In Progress column (also detected for Review column)" }
     },
     {
       "id": "BUG-17",
@@ -134,7 +134,7 @@
       "category": "state",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/kanban.spec.ts", "failure_message": "task detail modal select value after moving — select does not reflect new status after changing it" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/kanban.spec.ts", "failure_message": "moved task select reflects new status — expected select value 'in-progress' but got 'todo' (selectedTask not updated)" }
     },
     {
       "id": "BUG-18",
@@ -142,7 +142,7 @@
       "category": "accessibility",
       "severity": "low",
       "blind": { "detected": true, "test_file": "e2e/blind/users.spec.ts", "failure_message": "slide-over has aria-modal attribute — expected aria-modal='true' but attribute was null" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/users.spec.ts", "failure_message": "slide-over has aria-modal attribute — expected aria-modal='true' but attribute was missing" }
     },
     {
       "id": "BUG-19",
@@ -150,7 +150,7 @@
       "category": "interaction",
       "severity": "medium",
       "blind": { "detected": true, "test_file": "e2e/blind/search-autocomplete.spec.ts", "failure_message": "keyboard navigation with ArrowDown — first result not selected after pressing ArrowDown" },
-      "guided": { "detected": false, "test_file": null, "failure_message": null }
+      "guided": { "detected": true, "test_file": "e2e/guided/app-shell.spec.ts", "failure_message": "keyboard navigation with arrow keys — first result not aria-selected after pressing ArrowDown (also broke Enter selection test)" }
     },
     {
       "id": "BUG-20",

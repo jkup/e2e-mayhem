@@ -1,0 +1,184 @@
+{
+  "bugs": [
+    {
+      "id": "BUG-01",
+      "name": "Pagination off-by-one",
+      "category": "logic",
+      "severity": "high",
+      "file": "src/pages/UsersPage.tsx",
+      "description": "Change slice to use `page * pageSize` instead of `(page - 1) * pageSize`, so page 1 starts at row 11 instead of row 1.",
+      "hint": "First page of users table is missing the first 10 users"
+    },
+    {
+      "id": "BUG-02",
+      "name": "Sort direction inverted",
+      "category": "logic",
+      "severity": "medium",
+      "file": "src/pages/UsersPage.tsx",
+      "description": "Swap 'asc' and 'desc' in the sort comparison, so clicking a column header sorts descending first instead of ascending.",
+      "hint": "Clicking a column header sorts in the wrong direction"
+    },
+    {
+      "id": "BUG-03",
+      "name": "Search filter is case-sensitive",
+      "category": "logic",
+      "severity": "medium",
+      "file": "src/pages/UsersPage.tsx",
+      "description": "Remove `.toLowerCase()` from the search filter comparison so searches become case-sensitive.",
+      "hint": "Searching 'john' finds nothing, but 'John' works"
+    },
+    {
+      "id": "BUG-04",
+      "name": "Login accepts short passwords",
+      "category": "validation",
+      "severity": "high",
+      "file": "src/pages/LoginPage.tsx",
+      "description": "Change password length check from `< 6` to `< 2`, effectively allowing 2-character passwords.",
+      "hint": "Can log in with a 2-character password despite the 6-char minimum rule"
+    },
+    {
+      "id": "BUG-05",
+      "name": "Signup confirm password not validated",
+      "category": "validation",
+      "severity": "high",
+      "file": "src/pages/LoginPage.tsx",
+      "description": "Remove the `isSignup && password !== confirmPassword` check so mismatched passwords are accepted.",
+      "hint": "Signup succeeds even when confirm password doesn't match"
+    },
+    {
+      "id": "BUG-06",
+      "name": "Password toggle shows wrong label",
+      "category": "accessibility",
+      "severity": "low",
+      "file": "src/pages/LoginPage.tsx",
+      "description": "Swap the aria-label values so 'Show password' shows when password IS visible and vice versa.",
+      "hint": "Screen reader announces 'Show password' when password is already visible"
+    },
+    {
+      "id": "BUG-07",
+      "name": "Wizard skips company validation",
+      "category": "validation",
+      "severity": "medium",
+      "file": "src/pages/WizardPage.tsx",
+      "description": "Change the step check for company validation from `step === 1` to `step === 99`, so it never runs.",
+      "hint": "Can proceed past Company step without entering a company name"
+    },
+    {
+      "id": "BUG-08",
+      "name": "Wizard step indicator off by one",
+      "category": "visual",
+      "severity": "medium",
+      "file": "src/pages/WizardPage.tsx",
+      "description": "Change `i < step` to `i < step - 1` in the step indicator, so completed steps don't get the checkmark styling until two steps later.",
+      "hint": "Step indicator doesn't show checkmark for the most recently completed step"
+    },
+    {
+      "id": "BUG-09",
+      "name": "Wizard review shows wrong name",
+      "category": "logic",
+      "severity": "high",
+      "file": "src/pages/WizardPage.tsx",
+      "description": "Swap firstName and lastName in the review display so 'John Smith' shows as 'Smith John'.",
+      "hint": "Review step shows last name before first name"
+    },
+    {
+      "id": "BUG-10",
+      "name": "Modal doesn't close on Escape",
+      "category": "interaction",
+      "severity": "medium",
+      "file": "src/components/Modal.tsx",
+      "description": "Change the Escape key check from `e.key === 'Escape'` to `e.key === 'Esc'` (non-standard), so Escape key no longer closes the modal.",
+      "hint": "Pressing Escape does nothing when a modal is open"
+    },
+    {
+      "id": "BUG-11",
+      "name": "Modal backdrop click broken",
+      "category": "interaction",
+      "severity": "medium",
+      "file": "src/components/Modal.tsx",
+      "description": "Change the backdrop click check so it never matches (compare against a non-existent ref), making backdrop clicks not close the modal.",
+      "hint": "Clicking outside the modal dialog doesn't close it"
+    },
+    {
+      "id": "BUG-12",
+      "name": "Toast uses wrong color for errors",
+      "category": "visual",
+      "severity": "medium",
+      "file": "src/components/ToastContainer.tsx",
+      "description": "Change the error toast color from 'bg-red-500' to 'bg-green-500' so error toasts look like success toasts.",
+      "hint": "Error notifications appear in green instead of red"
+    },
+    {
+      "id": "BUG-13",
+      "name": "Select-all only selects first row",
+      "category": "state",
+      "severity": "high",
+      "file": "src/pages/UsersPage.tsx",
+      "description": "Change toggleSelectAll to only add the first user from the page instead of all users.",
+      "hint": "Select-all checkbox only selects 1 user instead of all 10 on the page"
+    },
+    {
+      "id": "BUG-14",
+      "name": "Bulk actions don't clear selection",
+      "category": "state",
+      "severity": "medium",
+      "file": "src/pages/UsersPage.tsx",
+      "description": "Remove the `setSelectedIds(new Set())` call in bulkAction, so selections persist after performing a bulk action.",
+      "hint": "After performing a bulk action, users remain selected"
+    },
+    {
+      "id": "BUG-15",
+      "name": "Mark-all-read doesn't work",
+      "category": "state",
+      "severity": "medium",
+      "file": "src/pages/DashboardPage.tsx",
+      "description": "Change markAllRead to set `read: false` instead of `read: true`, so it marks everything as unread.",
+      "hint": "Clicking 'Mark all as read' has no visible effect (items stay unread)"
+    },
+    {
+      "id": "BUG-16",
+      "name": "Kanban add task saves to wrong column",
+      "category": "state",
+      "severity": "high",
+      "file": "src/pages/KanbanPage.tsx",
+      "description": "Hardcode the new task status to 'todo' regardless of which column's + button was clicked.",
+      "hint": "Adding a task from 'In Progress' column puts it in 'To Do' instead"
+    },
+    {
+      "id": "BUG-17",
+      "name": "Task detail modal shows stale status",
+      "category": "state",
+      "severity": "medium",
+      "file": "src/pages/KanbanPage.tsx",
+      "description": "Remove the `setSelectedTask(prev => ...)` line from the move-to select handler, so the modal keeps showing the old status after changing it.",
+      "hint": "After moving a task via the dropdown, the modal still shows the old status"
+    },
+    {
+      "id": "BUG-18",
+      "name": "SlideOver missing aria-modal",
+      "category": "accessibility",
+      "severity": "low",
+      "file": "src/components/SlideOver.tsx",
+      "description": "Remove `aria-modal=\"true\"` from the slide-over panel.",
+      "hint": "Screen readers don't recognize the slide-over as a modal dialog"
+    },
+    {
+      "id": "BUG-19",
+      "name": "Search autocomplete keyboard nav broken",
+      "category": "interaction",
+      "severity": "medium",
+      "file": "src/components/SearchAutocomplete.tsx",
+      "description": "Swap ArrowDown and ArrowUp handlers so pressing Down moves the selection up and vice versa.",
+      "hint": "Arrow keys navigate search results in the wrong direction"
+    },
+    {
+      "id": "BUG-20",
+      "name": "Notification badge hardcoded",
+      "category": "visual",
+      "severity": "low",
+      "file": "src/App.tsx",
+      "description": "Change the notification badge from '3' to '0' so it always shows zero even though there are unread notifications.",
+      "hint": "Notification bell always shows 0 despite unread notifications existing"
+    }
+  ]
+}

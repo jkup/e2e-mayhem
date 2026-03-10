@@ -1,0 +1,164 @@
+{
+  "bugs": [
+    {
+      "id": "BUG-01",
+      "name": "Pagination off-by-one",
+      "category": "logic",
+      "severity": "high",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-02",
+      "name": "Sort direction inverted",
+      "category": "logic",
+      "severity": "medium",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-03",
+      "name": "Search filter is case-sensitive",
+      "category": "logic",
+      "severity": "medium",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-04",
+      "name": "Login accepts short passwords",
+      "category": "validation",
+      "severity": "high",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-05",
+      "name": "Signup confirm password not validated",
+      "category": "validation",
+      "severity": "high",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-06",
+      "name": "Password toggle shows wrong label",
+      "category": "accessibility",
+      "severity": "low",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-07",
+      "name": "Wizard skips company validation",
+      "category": "validation",
+      "severity": "medium",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-08",
+      "name": "Wizard step indicator off by one",
+      "category": "visual",
+      "severity": "medium",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-09",
+      "name": "Wizard review shows wrong name",
+      "category": "logic",
+      "severity": "high",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-10",
+      "name": "Modal doesn't close on Escape",
+      "category": "interaction",
+      "severity": "medium",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-11",
+      "name": "Modal backdrop click broken",
+      "category": "interaction",
+      "severity": "medium",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-12",
+      "name": "Toast uses wrong color for errors",
+      "category": "visual",
+      "severity": "medium",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-13",
+      "name": "Select-all only selects first row",
+      "category": "state",
+      "severity": "high",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-14",
+      "name": "Bulk actions don't clear selection",
+      "category": "state",
+      "severity": "medium",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-15",
+      "name": "Mark-all-read doesn't work",
+      "category": "state",
+      "severity": "medium",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-16",
+      "name": "Kanban add task saves to wrong column",
+      "category": "state",
+      "severity": "high",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-17",
+      "name": "Task detail modal shows stale status",
+      "category": "state",
+      "severity": "medium",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-18",
+      "name": "SlideOver missing aria-modal",
+      "category": "accessibility",
+      "severity": "low",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-19",
+      "name": "Search autocomplete keyboard nav broken",
+      "category": "interaction",
+      "severity": "medium",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    },
+    {
+      "id": "BUG-20",
+      "name": "Notification badge hardcoded",
+      "category": "visual",
+      "severity": "low",
+      "blind": { "detected": false, "test_file": null, "failure_message": null },
+      "guided": { "detected": false, "test_file": null, "failure_message": null }
+    }
+  ]
+}
